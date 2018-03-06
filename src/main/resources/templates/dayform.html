@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/addlostitem.css">
+    <link rel="stylesheet" href="css/addlostitem.css">
+    <link rel="stylesheet" href="css/navbarstylesheet.css">
+    <link rel="stylesheet" href="../static/css/navbarstylesheet.css">
+
+
+</head>
+<body>
+<div th:replace="base :: navlinks"></div>
+<div class="container">
+    <form  id = "contact" action="#" th:action="@{/addlostitem}"  th:object="${dob}" method="post">
+
+        <h4>insert your date of birth below</h4>
+        <input type="hidden" th:field="*{id}"/>
+
+
+        <fieldset>
+            <input placeholder="Date of Birth" type="text" th:field="*{date}" tabindex="2">
+        </fieldset>
+
+
+
+        <fieldset>
+            <button type="submit" id="contact-submit"  data-submit="...Sending">Submit</button>
+        </fieldset>
+    </form>
+
+
+</div>
+<div th:replace="base :: js"></div>
+</body>
+</html>

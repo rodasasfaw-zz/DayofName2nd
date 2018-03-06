@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600' rel='stylesheet' type='text/css'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.1.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/regstylesheet.css">
+
+</head>
+<body>
+<div class="testbox">
+    <h1>Registration</h1>
+
+    <form  th:action="@{/register}" th:object="${newuser}" method="post">
+        <hr>
+
+        <hr>
+        <label id="icon" for="name"><i class="icon-envelope "></i></label>
+        <input type="text" name="name" id="name" placeholder="Email"  th:field = "*{email}"required/>
+        <label id="icon" for="name"><i class="icon-user"></i></label>
+        <input type="text" name="name" id="name" placeholder=" User Name" th:field = "*{username}" required/>
+        <label id="icon" for="name"><i class="icon-shield"></i></label>
+        <input type="password" name="name" id="name" placeholder="Password"  th:field = "*{password}"required/>
+        <a class="button"><button type="submit">Register</button></a>
+    </form>
+</div>
+<div th:replace="base :: js"></div>
+</body>
+</html>
