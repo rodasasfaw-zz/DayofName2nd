@@ -9,8 +9,9 @@
 <div th:each="day: ${dob}">
 <label>your day name is:</label><p th:text="${day.name}"></p><br/>
  <label>your zodiac is:</label>   <p th:text="${day.zodiac}"></p>
-</div>
+
 <a th:href="@{/adddate}">add a date</a>
-<a th:href="@{/showdetail}">show detail</a>
+<a th:href="@{/{zodiac}(zodiac=${day.zodiac})}">show detail</a>
+</div>
 </body>
 </html>
