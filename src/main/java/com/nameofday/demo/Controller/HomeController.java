@@ -4,7 +4,7 @@ package com.nameofday.demo.Controller;
 
 import com.nameofday.demo.Models.DateofBirth;
 import com.nameofday.demo.Models.Sign;
-import com.nameofday.demo.Models.UserService;
+import com.nameofday.demo.Models.Service;
 import com.nameofday.demo.Repository.DateofBirthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
-import java.text.DateFormatSymbols;
-import java.util.Calendar;
+
 @Controller
 public class HomeController {
     @Autowired
     DateofBirthRepository dateofBirthRepository;
     @Autowired
-    UserService userService;
+    Service userService;
 
 
     @RequestMapping("/")

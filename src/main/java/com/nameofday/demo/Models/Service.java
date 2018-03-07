@@ -8,7 +8,7 @@ import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 @Service
-public class UserService {
+public class Service {
 
     @Autowired
     DateofBirthRepository dateofBirthRepository;
