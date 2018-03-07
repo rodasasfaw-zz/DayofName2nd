@@ -55,13 +55,15 @@ return "dayform";
         return "display";
    }
 
-    @GetMapping("/showdetail")
-    public @ResponseBody String showIndex( @RequestParam( "zodiac")String zodiac){
+    @GetMapping("/{zodiac}")
+    public @ResponseBody String showIndex(@PathVariable("zodiac") String zodiac){
+        DateofBirth dateofBirth = new DateofBirth();
 
         RestTemplate restTemplate = new RestTemplate();
-       Sign sign = restTemplate.getForObject("http://horoscope-api.herokuapp.com/horoscope/today/"+zodiac,Sign.class);
+        Sign sign = restTemplate.getForObject("http://horoscope-api.herokuapp.com/horoscope/today/"+zodiac,Sign.class);
         return  sign.getHoroscope();
     }
+
 
 
 }
