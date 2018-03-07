@@ -15,21 +15,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 
 @Controller
 public class HomeController {
     @Autowired
     DateofBirthRepository dateofBirthRepository;
+    int val;
+    String myday;
+
+    @RequestMapping("/")
+    public String index(Model model){
+        model.addAttribute("dob", dateofBirthRepository.findAll());
+
+        return "index";
+    }
     @RequestMapping("/login")
     public String login(Model model) {
         return "login";
     }
 
-   @GetMapping("/adddate")
+   @GetMapping("/showdate")
     public String adddate(Model model){
         model.addAttribute("dob", new DateofBirth());
 
@@ -38,34 +45,34 @@ return "dayform";
 
    }
    @PostMapping("/adddate")
-    public String showName(@Valid @ModelAttribute("dob") DateofBirth dateofBirth, Model model, BindingResult result){
+    public String showName(@Valid @ModelAttribute("dob") DateofBirth dobs, BindingResult result, Model model){
        if (result.hasErrors()) {
            return "dayform";
        }
 
 
        Calendar cal = Calendar.getInstance();
-       cal.setTime(dateofBirth.getDate());
-       int val=cal.get(Calendar.DAY_OF_WEEK);
+       cal.setTime(dobs.getDate());
+        val=cal.get(Calendar.DAY_OF_WEEK);
 
-   String myday=new DateFormatSymbols().getWeekdays()[val];
+    myday=new DateFormatSymbols().getWeekdays()[val];
 
           if(myday.equalsIgnoreCase("Monday")) {
-              if (dateofBirth.getSex().equalsIgnoreCase("male"))
-                  dateofBirth.setName("Kojo");
+              if (dobs.getSex().equalsIgnoreCase("male"))
+                  dobs.setName("Kojo");
               else
-                  dateofBirth.setName("Akojo");
+                  dobs.setName("Akojo");
 
-              System.out.println(dateofBirth.getName());
+              System.out.println(dobs.getName());
           }
           else
-              dateofBirth.setName("babute");
+              dobs.setName("babute");
 
-          dateofBirthRepository.save(dateofBirth);
+          dateofBirthRepository.save(dobs);
 
               System.out.println("your day is different");
-       model.addAttribute("date",dateofBirthRepository.findAll());
-        return "confirmationpage";
+       model.addAttribute("dob",dateofBirthRepository.findAll());
+        return "display";
    }
 
 

@@ -20,9 +20,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 @Autowired
     AppUserRepository userRepository;
 
-//    public UserDetailsService userDetailsServiceBean() throws Exception {
-//        return new SSUDS(userRepository);
-//    }
+   public UserDetailsService userDetailsServiceBean() throws Exception {
+       return new SSUDS(userRepository);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -34,7 +34,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers().hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/login").permitAll()
+                .formLogin().defaultSuccessUrl("/adddate").loginPage("/login").permitAll()
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
@@ -52,7 +52,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("user").password("pass").authorities("USER");
         auth.inMemoryAuthentication().withUser("admin").password("pass").authorities("ADMIN");
 
-
-//        auth.userDetailsService(userDetailsServiceBean());
+        auth.userDetailsService(userDetailsServiceBean());
     }
 }

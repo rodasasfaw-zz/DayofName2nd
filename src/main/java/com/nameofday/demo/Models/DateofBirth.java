@@ -3,10 +3,9 @@ package com.nameofday.demo.Models;
 import org.springframework.format.annotation.DateTimeFormat;
 import sun.util.calendar.LocalGregorianCalendar;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -14,7 +13,8 @@ public class DateofBirth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-  @DateTimeFormat(pattern = "MMM,d,YYYY")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "MMM d, yyyy")
     private Date date;
     private String name;
     private String sex;
@@ -23,7 +23,7 @@ public class DateofBirth {
     }
 
     public DateofBirth(Date date, String name, String sex) {
-        this.date = date;
+        this.date= date;
         this.name = name;
         this.sex = sex;
     }

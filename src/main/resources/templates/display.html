@@ -5,6 +5,9 @@
     <title></title>
 </head>
 <body>
-<span th:inline="text">your day name is: [[${dob.name}]]<br/></span>
+<div th:each="newdob:${dob}">
+<p th:text="${newdob.name}">
+</p>
+</div>
 </body>
 </html>
