@@ -20,7 +20,7 @@
         <!--<input type="hidden" th:field="*{id}"/>-->
 `
         <label>Date of birth</label>
-        <input type="text" placeholder="date of birth"
+        <input type="date" placeholder="MMM d,yyyy"
                th:field="*{date}"/>
         <label for="sex"> Sex</label>
         <select id="sex" th:field="*{sex}" name="sex">
@@ -29,7 +29,7 @@
         </select>
 
         <fieldset>
-            <button type="submit" id="contact-submit"  data-submit="...Sending">Submit</button>
+            <button type="submit">Submit</button>
         </fieldset>
     </form>
 

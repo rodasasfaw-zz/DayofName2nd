@@ -1,5 +1,6 @@
 package com.nameofday.demo.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 import sun.util.calendar.LocalGregorianCalendar;
 
@@ -13,13 +14,24 @@ public class DateofBirth {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "MMM d, yyyy")
+
+    @DateTimeFormat(pattern = "MMM d,yyyy")
     private Date date;
-    private String name;
-    private String sex;
+
+    @Override
+    public String toString() {
+        return "DateofBirth{" +
+                "zodiac='" + zodiac + '\'' +
+                '}';
+    }
+
+    private String name="";
+    private String sex="";
+    private String zodiac="";
 
     public DateofBirth() {
+
+
     }
 
     public DateofBirth(Date date, String name, String sex) {
@@ -37,12 +49,14 @@ public class DateofBirth {
     }
 
     public Date getDate() {
+
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
+
 
     public String getSex() {
         return sex;
@@ -57,6 +71,15 @@ public class DateofBirth {
     }
 
     public void setName(String name) {
+
         this.name = name;
+    }
+
+    public String getZodiac() {
+        return zodiac;
+    }
+
+    public void setZodiac(String zodiac) {
+        this.zodiac = zodiac;
     }
 }

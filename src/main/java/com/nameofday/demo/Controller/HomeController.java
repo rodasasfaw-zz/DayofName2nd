@@ -3,27 +3,26 @@ package com.nameofday.demo.Controller;
 
 
 import com.nameofday.demo.Models.DateofBirth;
+import com.nameofday.demo.Models.Sign;
+import com.nameofday.demo.Models.UserService;
 import com.nameofday.demo.Repository.DateofBirthRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
-
-
 @Controller
 public class HomeController {
     @Autowired
     DateofBirthRepository dateofBirthRepository;
-    int val;
-    String myday;
+    @Autowired
+    UserService userService;
+
 
     @RequestMapping("/")
     public String index(Model model){
@@ -36,7 +35,7 @@ public class HomeController {
         return "login";
     }
 
-   @GetMapping("/showdate")
+   @GetMapping("/adddate")
     public String adddate(Model model){
         model.addAttribute("dob", new DateofBirth());
 
@@ -44,37 +43,25 @@ return "dayform";
 
 
    }
-   @PostMapping("/adddate")
+   @PostMapping("/showdate")
     public String showName(@Valid @ModelAttribute("dob") DateofBirth dobs, BindingResult result, Model model){
        if (result.hasErrors()) {
            return "dayform";
        }
 
 
-       Calendar cal = Calendar.getInstance();
-       cal.setTime(dobs.getDate());
-        val=cal.get(Calendar.DAY_OF_WEEK);
+       model.addAttribute("dob",userService.getdayName(dobs));
 
-    myday=new DateFormatSymbols().getWeekdays()[val];
-
-          if(myday.equalsIgnoreCase("Monday")) {
-              if (dobs.getSex().equalsIgnoreCase("male"))
-                  dobs.setName("Kojo");
-              else
-                  dobs.setName("Akojo");
-
-              System.out.println(dobs.getName());
-          }
-          else
-              dobs.setName("babute");
-
-          dateofBirthRepository.save(dobs);
-
-              System.out.println("your day is different");
-       model.addAttribute("dob",dateofBirthRepository.findAll());
         return "display";
    }
 
+    @GetMapping("/showdetail")
+    public @ResponseBody String showIndex( @RequestParam( "zodiac")String zodiac){
+
+        RestTemplate restTemplate = new RestTemplate();
+       Sign sign = restTemplate.getForObject("http://horoscope-api.herokuapp.com/horoscope/today/"+zodiac,Sign.class);
+        return  sign.getHoroscope();
+    }
 
 
 }
